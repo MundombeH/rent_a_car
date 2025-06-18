@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import com.Bitech.rent_a_car.Models.ImagensModel.ImagemModels;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +45,10 @@ public class CarroModels implements Serializable {
     @JoinColumn(name = "Modelo_id")
     // private Set<ModeloModels> modelo = new HashSet<>();
     private ModeloModels modelo;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "carro", fetch = FetchType.LAZY)
+    private Set<ImagemModels> imagem = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -107,12 +114,24 @@ public class CarroModels implements Serializable {
         this.modelo = modelo;
     }
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public Set<ImagemModels> getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Set<ImagemModels> imagem) {
+        this.imagem = imagem;
+    }
+
     // public Set<ModeloModels> getModelo() {
-    //     return modelo;
+    // return modelo;
     // }
 
     // public void setModelo(Set<ModeloModels> modelo) {
-    //     this.modelo = modelo;
+    // this.modelo = modelo;
     // }
 
 }

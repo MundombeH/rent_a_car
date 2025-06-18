@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.Bitech.rent_a_car.Models.Aluguer.AcessorioModels;
 import com.Bitech.rent_a_car.Models.Aluguer.AluguerModels;
 import com.Bitech.rent_a_car.Models.Aluguer.ModeloModels;
+import com.Bitech.rent_a_car.Models.ImagensModel.ImagemModels;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -34,6 +35,7 @@ public class CarroResponseDTO {
 
     private Set<AluguerModels> aluguer = new HashSet<>();
     private Set<AcessorioModels> acessorios = new HashSet<>();
+    private Set<ImagemModels> imagem = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -97,5 +99,13 @@ public class CarroResponseDTO {
 
     public void setModelo(ModeloModels modelo) {
         this.modelo = modelo;
+    }
+
+    public Set<ImagemModels> getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Set<ImagemModels> imagem) {
+        this.imagem = imagem;
     }
 }

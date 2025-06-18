@@ -73,8 +73,8 @@ public class AluguerService {
             throw new Exception("O valor total a pegar pelo aluguer do veiculo não pode se vazio!");
 
         }
-        int tempo = Period.between(aluguerRequestDTO.getDataDeEntrega().getTotalSeconds(),
-                aluguerRequestDTO.getDataDeDevolucao().getTotalSeconds());
+        // int tempo = Period.between(aluguerRequestDTO.getDataDeEntrega().getTotalSeconds(),
+        //         aluguerRequestDTO.getDataDeDevolucao().getTotalSeconds());
 
         ApoliceDeSeguroModels apolice = apoliceDeSeguroRepository.findById(aluguerRequestDTO.getApolice())
                 .orElseThrow(() -> new Exception("Apolice de seguro nao encontrada!"));
@@ -83,12 +83,12 @@ public class AluguerService {
         MotoristaModels motorista = motoristaRepository.findById(aluguerRequestDTO.getMotorista())
                 .orElseThrow(() -> new Exception("Motorista não encontrado!"));
 
-        double valorTotal = (tempo / 86400) * carro.getValorDaDiaria();
+        // double valorTotal = (tempo / 86400) * carro.getValorDaDiaria();
         aluguer.setDataDeDEvolucao(aluguerRequestDTO.getDataDeDevolucao());
         aluguer.setDataDeEntrega(aluguerRequestDTO.getDataDeEntrega());
         aluguer.setDataDoPedido(aluguerRequestDTO.getDataDoPedido());
         aluguer.setValorTotal(aluguerRequestDTO.getValorTotal());
-        System.out.println("Valor Total: " + valorTotal);
+        // System.out.println("Valor Total: " + valorTotal);
         aluguer.setApolice(apolice);
         aluguer.setCarro(carro);
         aluguer.setMotorista(motorista);

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("")
 public class rotaoPadraoController {
     
-    @GetMapping("")
-    public String getMethodName() {
+    @GetMapping("/")
+    public String get() {
         return new String("Bem vindo/(a) a página inicial do Me Aluga Só!");
     }
 }

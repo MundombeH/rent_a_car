@@ -42,6 +42,7 @@ public class CarroService {
         dto.setModelo(carro.getModelo());
         dto.setAcessorios(carro.getAcessorios());
         dto.setAluguer(carro.getAluguer());
+        dto.setImagem(carro.getImagem());
 
         return dto;
 

@@ -27,6 +27,7 @@ public class CarroRequestDto {
 
     private Set<UUID> aluguer = new HashSet<>();
     private Set<UUID> acessorios = new HashSet<>();
+    private Set<UUID> imagemId = new HashSet<>();
     private UUID modelo;
 
 
@@ -84,6 +85,14 @@ public class CarroRequestDto {
 
     public void setModelo(UUID modelo) {
         this.modelo = modelo;
+    }
+
+    public Set<UUID> getImagemId() {
+        return imagemId;
+    }
+
+    public void setImagemId(Set<UUID> imagemId) {
+        this.imagemId = imagemId;
     }
 
 }
