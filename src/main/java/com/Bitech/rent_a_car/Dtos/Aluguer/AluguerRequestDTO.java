@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public class AluguerRequestDTO {
     private UUID id;
@@ -18,8 +17,8 @@ public class AluguerRequestDTO {
     @FutureOrPresent
     private LocalDate dataDeDevolucao;
 
-    @Positive
-    @NotNull
+    // @Positive
+    // @NotNull
     private Double valorTotal;
 
     @NotNull

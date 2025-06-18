@@ -1,7 +1,6 @@
 package com.Bitech.rent_a_car.Services.Aluguer;
 
-import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -69,17 +68,19 @@ public class AluguerService {
             throw new Exception("A data do pedido do veiculo não pode se vazia!");
 
         }
-        if (aluguerRequestDTO.getValorTotal() == null) {
-            throw new Exception("O valor total a pegar pelo aluguer do veiculo não pode se vazio!");
+        long dias = ChronoUnit.DAYS.between(aluguerRequestDTO.getDataDeEntrega(),
+                aluguerRequestDTO.getDataDeDevolucao());
 
+        // Garantir que há pelo menos 1 dia de aluguel
+        if (dias <= 0) {
+            throw new Exception("A data de devolução deve ser após a data de entrega.");
         }
-        // int tempo = Period.between(aluguerRequestDTO.getDataDeEntrega().getTotalSeconds(),
-        //         aluguerRequestDTO.getDataDeDevolucao().getTotalSeconds());
-
         ApoliceDeSeguroModels apolice = apoliceDeSeguroRepository.findById(aluguerRequestDTO.getApolice())
                 .orElseThrow(() -> new Exception("Apolice de seguro nao encontrada!"));
         CarroModels carro = carroRepository.findById(aluguerRequestDTO.getCarro())
                 .orElseThrow(() -> new Exception("Carro nao encontrada!"));
+
+        double valorTotal = dias * carro.getValorDaDiaria();
         MotoristaModels motorista = motoristaRepository.findById(aluguerRequestDTO.getMotorista())
                 .orElseThrow(() -> new Exception("Motorista não encontrado!"));
 
@@ -87,7 +88,7 @@ public class AluguerService {
         aluguer.setDataDeDEvolucao(aluguerRequestDTO.getDataDeDevolucao());
         aluguer.setDataDeEntrega(aluguerRequestDTO.getDataDeEntrega());
         aluguer.setDataDoPedido(aluguerRequestDTO.getDataDoPedido());
-        aluguer.setValorTotal(aluguerRequestDTO.getValorTotal());
+        aluguer.setValorTotal(valorTotal);
         // System.out.println("Valor Total: " + valorTotal);
         aluguer.setApolice(apolice);
         aluguer.setCarro(carro);
@@ -123,20 +124,27 @@ public class AluguerService {
             throw new Exception("A data do pedido do veiculo não pode se vazia!");
 
         }
-        if (aluguerRequestDTO.getValorTotal() == null) {
-            throw new Exception("O valor total a pegar pelo aluguer do veiculo não pode se vazio!");
+        long dias = ChronoUnit.DAYS.between(aluguerRequestDTO.getDataDeEntrega(),
+                aluguerRequestDTO.getDataDeDevolucao());
 
+        // Garantir que há pelo menos 1 dia de aluguel
+        if (dias <= 0) {
+            throw new Exception("A data de devolução deve ser após a data de entrega.");
         }
         ApoliceDeSeguroModels apolice = apoliceDeSeguroRepository.findById(aluguerRequestDTO.getApolice())
                 .orElseThrow(() -> new Exception("Apolice de seguro nao encontrada!"));
         CarroModels carro = carroRepository.findById(aluguerRequestDTO.getCarro())
                 .orElseThrow(() -> new Exception("Carro nao encontrada!"));
+
+        double valorTotal = dias*carro.getValorDaDiaria();
         MotoristaModels motorista = motoristaRepository.findById(aluguerRequestDTO.getMotorista())
+
+
                 .orElseThrow(() -> new Exception("Motorista não encontrado!"));
         aluguer.setDataDeDEvolucao(aluguerRequestDTO.getDataDeDevolucao());
         aluguer.setDataDeEntrega(aluguerRequestDTO.getDataDeEntrega());
         aluguer.setDataDoPedido(aluguerRequestDTO.getDataDoPedido());
-        aluguer.setValorTotal(aluguerRequestDTO.getValorTotal());
+        aluguer.setValorTotal(valorTotal);
         aluguer.setApolice(apolice);
         aluguer.setCarro(carro);
         aluguer.setMotorista(motorista);
