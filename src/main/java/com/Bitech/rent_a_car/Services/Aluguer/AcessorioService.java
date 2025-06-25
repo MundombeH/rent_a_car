@@ -2,10 +2,14 @@ package com.Bitech.rent_a_car.Services.Aluguer;
 
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.Bitech.rent_a_car.Dtos.Aluguer.AcessorioRequestDTO;
 import com.Bitech.rent_a_car.Dtos.Aluguer.AcessorioResponseDTO;
+import com.Bitech.rent_a_car.Dtos.Imagens.ImagemReponseDTO;
 import com.Bitech.rent_a_car.Models.Aluguer.AcessorioModels;
 import com.Bitech.rent_a_car.Models.Aluguer.CarroModels;
 import com.Bitech.rent_a_car.Repository.Aluguer.AcessorioRepository;
@@ -36,6 +40,21 @@ public class AcessorioService {
         dto.setDescricao(acessorio.getDescricao());
         dto.setCarro(acessorio.getCarro());
         return dto;
+
+    }
+
+    public List<AcessorioResponseDTO> getPorCarro(@Param(value = "id") UUID id) {
+        CarroModels carros = carroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
+
+        List<AcessorioModels> acessorios = acessorioRepository.findByCarro(carros);
+        List<AcessorioResponseDTO> acessorioDTO = acessorios.stream().map(func -> {
+            var dto = new AcessorioResponseDTO();
+            BeanUtils.copyProperties(func, dto);
+            return dto;
+        }).toList();
+
+        return acessorioDTO;
 
     }
 

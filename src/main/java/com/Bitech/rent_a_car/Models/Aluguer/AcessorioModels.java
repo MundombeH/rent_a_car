@@ -3,6 +3,8 @@ package com.Bitech.rent_a_car.Models.Aluguer;
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.hibernate.engine.profile.Fetch;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;

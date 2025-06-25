@@ -11,6 +11,7 @@ public class rotaoPadraoController {
     
     @GetMapping("/")
     public String get() {
+    System.out.println("API Conectada!");
         return new String("Bem vindo/(a) a página inicial do Me Aluga Só!");
     }
 }

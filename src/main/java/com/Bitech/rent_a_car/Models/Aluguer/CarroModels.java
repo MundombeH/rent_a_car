@@ -37,7 +37,8 @@ public class CarroModels implements Serializable {
     @JsonIgnore
     private Set<AluguerModels> aluguer = new HashSet<>();
 
-    @OneToMany(mappedBy = "carro")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "carro", fetch = FetchType.LAZY)
     private Set<AcessorioModels> acessorios = new HashSet<>();
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

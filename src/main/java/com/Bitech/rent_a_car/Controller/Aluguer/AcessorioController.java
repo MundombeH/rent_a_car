@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,8 @@ import com.Bitech.rent_a_car.Models.Aluguer.AcessorioModels;
 import com.Bitech.rent_a_car.Services.Aluguer.AcessorioService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/acessorio")
@@ -39,6 +42,12 @@ public class AcessorioController {
 
     }
 
+    @GetMapping("carro")
+    public ResponseEntity<Object> getAcessorioPorCarros(@Param(value = "carro") UUID carro) {
+        List<AcessorioResponseDTO> dto = acessorioService.getPorCarro(carro);
+        return ResponseEntity.status(200).body(dto);
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Object> getOneAcessorio(@PathVariable UUID id) {
         AcessorioResponseDTO dto = acessorioService.getOne(id);
